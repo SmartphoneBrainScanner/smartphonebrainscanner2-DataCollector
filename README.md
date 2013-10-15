@@ -1,3 +1,3 @@
 sbs2-DataCollector
 ==================
-pull test
+pull test confirmed
