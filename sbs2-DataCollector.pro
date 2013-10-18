@@ -22,8 +22,8 @@ SOURCES += main.cpp \
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
-#include(../../smartphonebrainscanner2-core/src/sbs2.pri)
-include(/home/s121157/SBS2/Builts/smartphonebrainscanner2-core/src/sbs2_binary_decryptor.pri)
+include(../smartphonebrainscanner2-core/src/sbs2_binary_decryptor.pri)
+
 
 HEADERS += \
     mycallback.h
@@ -67,9 +67,9 @@ OTHER_FILES += \
     android/res/values/libs.xml
 
 
-unix:!macx: LIBS += -L$$PWD/../../../../decryptor_libraries/ -lsbs2emotivdecryptor_android
+unix:!macx: LIBS += -L$$PWD/../decryptor_libraries/ -lsbs2emotivdecryptor_android
 
-INCLUDEPATH += $$PWD/../../../../decryptor_libraries
-DEPENDPATH += $$PWD/../../../../decryptor_libraries
+INCLUDEPATH += $$PWD/../decryptor_libraries
+DEPENDPATH += $$PWD/../decryptor_libraries
 
-unix:!macx: PRE_TARGETDEPS += $$PWD/../../../../decryptor_libraries/libsbs2emotivdecryptor_android.a
+unix:!macx: PRE_TARGETDEPS += $$PWD/../decryptor_libraries/libsbs2emotivdecryptor_android.a

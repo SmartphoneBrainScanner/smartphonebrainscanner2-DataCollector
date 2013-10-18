@@ -11,48 +11,49 @@ Item
     property int fakeHeight: 120//80
     opacity: 0.2
 
+    width: 360
+    height: 150
+
     Rectangle
     {
+        width: parent.width
+        height: parent.height/5*2
+        color: "#ee2211"
+        border.color: "#a6170b"
+        Text
+        {
+            color: "#eee"
+            font.pointSize: 28
+            text: {return String(parent.parent.desc); }
+            anchors.centerIn: parent
+        }
+        anchors.bottom: parent.top
+        //anchors.bottomMargin: -5
+        anchors.left: parent.left
+        //anchors.leftMargin: 5
+    }
 
+    Rectangle
+    {
 	id: input
-	width: parent.fakeWidth
-	height: parent.fakeHeight
-	color: "lightGray"
-	border.color: "black"
+    width: parent.width
+    height: parent.height/5*3
+    color: "#fbd2cf"
+    border.color: "#a6170b"
+        Text
+        {
+            id: textInput
+            color: "#a6170b"
+            font.bold: true
+            font.pointSize: 32
+            text: parent.parent.text
+            smooth: true
+            anchors.fill: parent
+            anchors.leftMargin: 24
+            anchors.topMargin: 12
 
 
-
-	Text
-	{
-	    id: textInput
-	    color: "black"
-	    font.bold: true
-	    font.pointSize: 32
-	    text: parent.parent.text
-
-	    smooth: true
-	    anchors.fill: parent
-	    anchors.leftMargin: 10
-	    anchors.topMargin: 30
-
-
-	}
+        }
     }
-    Rectangle
-    {
-	width: 240
-	height: 80
-	color: "gray"
-	border.color: "black"
-	Text
-	{
-	    font.pointSize: 28
-	    text: {return String(parent.parent.desc); }
-	    anchors.centerIn: parent
-	}
-	anchors.bottom: parent.top
-	anchors.bottomMargin: -5
-	anchors.left: parent.left
-	anchors.leftMargin: 5
-    }
+
 }

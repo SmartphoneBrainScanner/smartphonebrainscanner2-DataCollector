@@ -6,6 +6,7 @@ Rectangle {
     property int scalling: 1
     width: 800 / scalling
     height: 480 / scalling
+    color: "#f9bcb7"
 
     function cqValue(name,value)
     {
@@ -42,7 +43,7 @@ Rectangle {
 
     // Emocap
     Electrode{name: "TP10"; x: 580/scalling - 20; y: 275/scalling}
-    Electrode{name: "TP9"; x: 250/scalling - 20; y: 275/sdcalling}
+    Electrode{name: "TP9"; x: 250/scalling - 20; y: 275/scalling}
     Electrode{name: "FZ"; x: 415/scalling - 20; y: 177/scalling}
     Electrode{name: "P3"; x: 340/scalling - 20; y: 316/scalling}
     Electrode{name: "P4"; x: 483/scalling - 20; y: 316/scalling}

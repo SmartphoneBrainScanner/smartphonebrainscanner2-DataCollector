@@ -1,9 +1,9 @@
 import Qt 4.7
 
 Rectangle {
-    width: 270
+    width: 752
     height: 90
-    color: "black"
+    color: "#ee2211"
     opacity: {if (desc == "quit" || isReady) return 1; return 0.4}
     property string desc
     x: 0
@@ -12,7 +12,7 @@ Rectangle {
 
 
     Text {
-	color: "white"
+    color: "#eee"
 	text: parent.desc
 	font.pointSize: 36
 	anchors.centerIn: parent

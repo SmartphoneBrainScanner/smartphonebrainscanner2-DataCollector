@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /home/s121157/SBS2/Builts/Collector/smartphonebrainscanner2-apps-sbs2-DataCollector/sbs2-DataCollector/android/src/org/kde/necessitas/ministro/IMinistro.aidl
+ * Original file: /home/s121157/SBS2/BranchesTest/smartphonebrainscanner2-DataCollector/android/src/org/kde/necessitas/ministro/IMinistro.aidl
  */
 package org.kde.necessitas.ministro;
 public interface IMinistro extends android.os.IInterface

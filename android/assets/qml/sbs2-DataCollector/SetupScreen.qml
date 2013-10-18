@@ -2,11 +2,11 @@ import QtQuick 1.0
 
 Rectangle {
     id: setupScreen
+    color: "#f9bcb7"
     x: 0
     y: 0
     width: parent.width
     height: parent.height
-    color: "white"
     property int counter: 0
     property int direction: 1
 
@@ -48,111 +48,142 @@ Rectangle {
 	setupScreen.startReady = true;
     }
 
+    function setFocunOnDescriptionInput()
+    {
+        descText.forceActiveFocus();
+    }
+
+
+
+    Rectangle
+    {
+        color: "#ee2211"
+        width: parent.width
+        height: 120
+
+
+        Text {
+            x: 24
+            anchors.verticalCenter: parent.verticalCenter
+            color: "#eee"
+            text: page.title
+            font.family: "Helvetica"
+            font.pointSize: 36
+            font.bold: true        
+        }
+
+        Button {
+            id: quit
+            height: parent.height
+            width: height
+            color: "#a6170b"
+            anchors.right: parent.right
+            desc: "x"
+        }
+    }
     Scalpmap{id:scalpmap; anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: parent.bottom;}
 
-
-
     Text {
-	x: 20;
-	y: 20;
-	color: "black"
-	text: page.title
-	font.family: "Helvetica"
-	font.pointSize: 48
-	font.bold: true
-    }
+        id: time
+        text: " "
+        property int move : 0
 
-    Text {
-	id: time
-	text: " "
-	property int move : 0
+        Component.onCompleted: set()
 
-	Component.onCompleted: set()
-
-	function set()
-	{
-	    var currentTime = new Date();
-	    var hours = currentTime.getHours();
-	    var minutes = currentTime.getMinutes();
-	    var seconds = currentTime.getSeconds();
-	    var timeString="" ;
-	    if (minutes < 10)
-	    {
-		minutes = "0" + minutes
-	    }
-	    if (hours < 10)
-	    {
-		hours = "0" + hours
-	    }
-	    if (seconds < 10)
-	    {
-		seconds = "0" + seconds
-	    }
+        function set()
+        {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            var timeString="" ;
+            if (minutes < 10)
+            {
+                minutes = "0" + minutes
+            }
+            if (hours < 10)
+            {
+                hours = "0" + hours
+            }
+            if (seconds < 10)
+            {
+                seconds = "0" + seconds
+            }
 
 
-	    timeString+=hours + ":" + minutes + ":" + seconds;
+            timeString+=hours + ":" + minutes + ":" + seconds;
 
-	    time.text = timeString;
-	    time.move = seconds;
+            time.text = timeString;
+            time.move = seconds;
+        }
 
+        Timer
+        {
+            id: timeTimer
+            interval: 1000
+            repeat: true
+            running: true
+            onTriggered: {time.set(); }
+        }
 
-	}
-
-	Timer
-	{
-	    id: timeTimer
-	    interval: 1000
-	    repeat: true
-	    running: true
-	    onTriggered: {time.set(); }
-	}
-
-	x: 20
-	y: page.height - 90
-	color: "grey"
-	font.family: "Helvetica"
-	font.pointSize: 27
-	font.bold: true
+        x: 20
+        y: page.height - 90
+        color: "grey"
+        font.family: "Helvetica"
+        font.pointSize: 27
+        font.bold: true
 
 
-	Rectangle
-	{
-	    color: "grey"
-	    anchors.top: parent.bottom
-	    anchors.topMargin: 0
+        Rectangle
+        {
+            color: "grey"
+            anchors.top: parent.bottom
+            anchors.topMargin: 0
 
-	    width: parent.width
-	    height: 10
-	    Behavior on width {
-		NumberAnimation {easing.type: Easing.InOutBounce}
-	    }
-	    Rectangle
-	    {
-		color: "black"
-		height: parent.height
-		width: 10
-		x: time.move/ 60.0 * parent.width - width
-		opacity: time.move/ 60.0
+            width: parent.width
+            height: 10
+            Behavior on width
+            {
+                NumberAnimation {easing.type: Easing.InOutBounce}
+            }
+            Rectangle
+            {
+                color: "black"
+                height: parent.height
+                width: 10
+                x: time.move/ 60.0 * parent.width - width
+                opacity: time.move/ 60.0
 
-		Behavior on x
-		{
-		    NumberAnimation {easing.type: Easing.InOutBounce}
-		}
-	    }
-	}
-
-
-
+                Behavior on x
+                {
+                    NumberAnimation {easing.type: Easing.InOutBounce}
+                }
+            }
+        }
     }
 
 
-    MyTextInput {id: userTextInput; desc: "user"; x: 20; y: 250; visible: setupScreen.userVisible}
-    MyTextInput {id: descriptionTextInput; desc: "description"; x: 20; y: 480; visible: setupScreen.descVisible}
-    Button {id: quit; desc: "quit"; x: page.width-quit.width; y: 120}
-    Button {id: start; desc: "start"; x: 0; y: 680; isReady: setupScreen.startReady}
+    MyTextInput {id: userTextInput; desc: "Subject's Name"; x: 24; y: 250; visible: setupScreen.userVisible}
+    MyTextInput {id: descriptionTextInput; desc: "Session's Desc"; x: 24; y: 480; visible: setupScreen.descVisible}
 
-    MyText{id: userText; desc: "user"; x: 20; y: 250; visible: !setupScreen.userVisible; text: setupScreen.username}
-    MyText{id: descText; desc: "description"; x: 20; y: 480; visible: !setupScreen.descVisible; text: setupScreen.description}
+    Button {id: start; desc: "start"; x: 0; y: 620; radius: 10; anchors.horizontalCenter: parent.horizontalCenter; isReady: setupScreen.startReady}
+
+    MyText{id: userText; desc: "Subject's Name"; x: 24; y: 240; visible: !setupScreen.userVisible; text: setupScreen.username}
+    MyText{id: descText; desc: "Session's Desc"; x: 24; y: 460; visible: !setupScreen.descVisible; text: setupScreen.description}
+
+    Text{
+        width: 340
+        height: 200
+        y: 200
+        anchors.right: parent.right
+        anchors.rightMargin: 36
+        color:"#a6170b"
+        text: "Tap inside each input box on the left to insert the information about the experiment\n\nClose the keyboard to set the value in the input box"
+        wrapMode: "WordWrap"
+        font.pointSize: 18
+        horizontalAlignment: Text.AlignJustify
+
+    }
 
     Rectangle
     {
@@ -164,6 +195,8 @@ Rectangle {
 	anchors.left: start.right
 
     }
+
+
 
 
     Behavior on opacity {
