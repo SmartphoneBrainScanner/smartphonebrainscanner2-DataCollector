@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /home/s121157/SBS2/BranchesTest/smartphonebrainscanner2-DataCollector/android/src/org/kde/necessitas/ministro/IMinistroCallback.aidl
+ * Original file: /home/s121157/SBS2/Fresh/smartphonebrainscanner2-DataCollector/android/src/org/kde/necessitas/ministro/IMinistroCallback.aidl
  */
 package org.kde.necessitas.ministro;
 public interface IMinistroCallback extends android.os.IInterface
