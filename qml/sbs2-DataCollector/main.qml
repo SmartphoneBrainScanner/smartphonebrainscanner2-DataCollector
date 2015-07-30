@@ -1,4 +1,10 @@
-import QtQuick 1.0
+import QtQuick 2.0
+import QtQuick.Window 2.0
+
+Window {
+    visible: true
+    width: 800
+    height: 1280
 
 Rectangle {
     id: page
@@ -6,6 +12,7 @@ Rectangle {
     height: 1280
     color: "black"
     state: "startupScreen"
+    objectName: "rect"
     property string title: "sbs2-DataCollector"
     property bool setupScreenVisible: true
     property bool vizVisible: false
@@ -45,4 +52,5 @@ Rectangle {
 
     SetupScreen{id: setupScreen; visible: page.setupScreenVisible}
     Viz{id: viz; visible: page.vizVisible}
+}
 }

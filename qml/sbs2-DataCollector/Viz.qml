@@ -1,4 +1,4 @@
-import QtQuick 1.0
+import QtQuick 2.0
 
 Rectangle {
     width: parent.width
@@ -67,7 +67,7 @@ Rectangle {
             {
                 id: descText
                 font.pointSize:24
-                anchors.top: usernameText.bottom
+                //anchors.top: usernameText.bottom
                 anchors.left: descriptionLabel.right
                 color: "white"
                 text : setupScreen.description

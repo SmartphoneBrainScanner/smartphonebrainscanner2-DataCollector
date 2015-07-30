@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>scalpmap.png</file>
+        <file alias="Button.qml">qml/sbs2-DataCollector/Button.qml</file>
+        <file alias="Electrode.qml">qml/sbs2-DataCollector/Electrode.qml</file>
+        <file alias="main.qml">qml/sbs2-DataCollector/main.qml</file>
+        <file alias="MyText.qml">qml/sbs2-DataCollector/MyText.qml</file>
+        <file alias="MyTextInput.qml">qml/sbs2-DataCollector/MyTextInput.qml</file>
+        <file alias="Scalpmap.qml">qml/sbs2-DataCollector/Scalpmap.qml</file>
+        <file alias="SetupScreen.qml">qml/sbs2-DataCollector/SetupScreen.qml</file>
+        <file alias="Viz.qml">qml/sbs2-DataCollector/Viz.qml</file>
+    </qresource>
+</RCC>
