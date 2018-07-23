@@ -57,7 +57,6 @@ Rectangle {
             Text {
                 id: descText
                 font.pointSize: 24
-                anchors.top: usernameText.bottom
                 anchors.left: descriptionLabel.right
                 color: "white"
                 text: setupScreen.description
