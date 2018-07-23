@@ -10,39 +10,42 @@ Rectangle {
     property bool setupScreenVisible: true
     property bool vizVisible: false
 
-    signal event(string eventType);
-    signal startRecording(string user, string desc);
-    signal stopRecording();
+    signal event(string eventType)
+    signal startRecording(string user, string desc)
+    signal stopRecording
 
-    function cqUpdated(channel, value)
-    {
-	setupScreen.cqValue(channel,value);
-	viz.cqValue(channel,value);
+    function cqUpdated(channel, value) {
+        setupScreen.cqValue(channel, value)
+        viz.cqValue(channel, value)
     }
 
-    function currentPacket(value)
-    {
-	viz.currentPacket(value)
+    function currentPacket(value) {
+        viz.currentPacket(value)
     }
 
     states: [
-	State {
-	    name: "startupScreen"
-	    PropertyChanges {
-		target: page
-	    }
-	},
-	State {
-	    name: "show"
-	    PropertyChanges {
-		target: page
-		setupScreenVisible: false
-		vizVisible: true
-	    }
-
-	}
+        State {
+            name: "startupScreen"
+            PropertyChanges {
+                target: page
+            }
+        },
+        State {
+            name: "show"
+            PropertyChanges {
+                target: page
+                setupScreenVisible: false
+                vizVisible: true
+            }
+        }
     ]
 
-    SetupScreen{id: setupScreen; visible: page.setupScreenVisible}
-    Viz{id: viz; visible: page.vizVisible}
+    SetupScreen {
+        id: setupScreen
+        visible: page.setupScreenVisible
+    }
+    Viz {
+        id: viz
+        visible: page.vizVisible
+    }
 }

@@ -3,23 +3,21 @@ import QtQuick 2.0
 Rectangle {
     width: 40
     height: width
-    radius: width/3
+    radius: width / 3
     property int value: 0
     smooth: true
     property string name: ""
     color: {
         if (value < 81)
-        return "black"
+            return "black"
         if (value < 221)
-        return "red"
+            return "red"
         if (value < 314)
-        return "orange"
+            return "orange"
         if (value < 407)
-        return "yellow"
+            return "yellow"
         if (value >= 407)
-        return "green"
+            return "green"
         return "blue"
     }
-
-
 }

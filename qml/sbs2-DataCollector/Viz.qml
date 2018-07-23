@@ -5,24 +5,20 @@ Rectangle {
     height: parent.height
     color: "#f9bcb7"
 
-    function cqValue(name, value)
-    {
-	scalpmap.cqValue(name,value);
+    function cqValue(name, value) {
+        scalpmap.cqValue(name, value)
     }
 
-    function currentPacket(value)
-    {
-	currentPacketText.text = value;
+    function currentPacket(value) {
+        currentPacketText.text = value
     }
 
-    Rectangle
-    {
+    Rectangle {
         color: "#ee2211"
         width: parent.width
         height: 120
 
-        Rectangle
-        {
+        Rectangle {
             id: usernameBox
             anchors.top: parent.top
             anchors.left: parent.left
@@ -30,58 +26,51 @@ Rectangle {
             anchors.topMargin: 12
             height: 48
 
-            Text
-            {
+            Text {
                 anchors.left: parent.left
                 id: usernameLabel
                 font.pointSize: 24
                 color: "white"
-                text : "Subject: "
+                text: "Subject: "
             }
-            Text
-            {
+            Text {
                 id: usernameText
                 font.pointSize: 24
                 anchors.left: usernameLabel.right
                 color: "white"
-                text : setupScreen.username
+                text: setupScreen.username
             }
         }
-        Rectangle
-        {
+        Rectangle {
             anchors.top: usernameBox.bottom
             anchors.left: parent.left
             anchors.leftMargin: 24
             height: 48
 
-            Text
-            {
+            Text {
                 id: descriptionLabel
                 font.pointSize: 24
                 anchors.left: parent.left
                 color: "white"
-                text : "Session: "
-
+                text: "Session: "
             }
-            Text
-            {
+            Text {
                 id: descText
-                font.pointSize:24
+                font.pointSize: 24
                 anchors.top: usernameText.bottom
                 anchors.left: descriptionLabel.right
                 color: "white"
-                text : setupScreen.description
+                text: setupScreen.description
             }
         }
 
-        Rectangle
-        {
-        id: quitRect
-        color: "#a6170b"
-        height: parent.height
-        width: 240
-        anchors.right: parent.right
-        anchors.top: parent.top
+        Rectangle {
+            id: quitRect
+            color: "#a6170b"
+            height: parent.height
+            width: 240
+            anchors.right: parent.right
+            anchors.top: parent.top
 
             Text {
                 anchors.verticalCenter: parent.verticalCenter
@@ -93,39 +82,37 @@ Rectangle {
                 font.bold: true
             }
 
-            MouseArea
-            {
+            MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                Qt.quit();
+                    Qt.quit()
                 }
             }
         }
     }
 
-    Text
-    {
+    Text {
         id: currentPacketLabel
         font.pointSize: 28
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 360
         color: "#a6170b"
-        text : "Number of collected packages"
+        text: "Number of collected packages"
     }
-    Text
-    {
+    Text {
         id: currentPacketText
         font.pointSize: 72
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: currentPacketLabel.bottom
         anchors.topMargin: 24
         color: "#a6170b"
-        text : "00"
+        text: "00"
     }
 
-    Scalpmap{id: scalpmap; anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: parent.bottom}
-
-
-
+    Scalpmap {
+        id: scalpmap
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+    }
 }
