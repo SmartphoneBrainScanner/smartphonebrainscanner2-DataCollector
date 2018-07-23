@@ -1,4 +1,4 @@
-import QtQuick 1.0
+import QtQuick 2.2
 
 Item
 {
@@ -55,7 +55,7 @@ Item
             anchors.leftMargin: 24
             anchors.topMargin: 12
 
-            onTextChanged:
+            onEditingFinished:
             {
             if (desc == "Subject's Name"){
                 setupScreen.userInput(textInput.text)

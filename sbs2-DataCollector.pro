@@ -3,6 +3,8 @@ folder_01.source = qml/sbs2-DataCollector
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
+QT += quick
+
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
@@ -19,8 +21,8 @@ SOURCES += main.cpp \
     mycallback.cpp
 
 # Please do not modify the following two lines. Required for deployment.
-include(qmlapplicationviewer/qmlapplicationviewer.pri)
-qtcAddDeployment()
+#include(qmlapplicationviewer/qmlapplicationviewer.pri)
+#qtcAddDeployment()
 
 include(../smartphonebrainscanner2-core/src/sbs2.pri)
 
