@@ -10,14 +10,11 @@ Rectangle {
         return 0.4
     }
     property string desc
-    x: 0
-    y: 0
     property bool isReady: true
 
     Text {
         color: "#eee"
         text: parent.desc
-        font.pointSize: 36
         anchors.centerIn: parent
         font.bold: true
     }
@@ -25,7 +22,7 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            if (parent.desc == "quit")
+            if (parent.desc == "quit" || parent.desc == "x")
                 Qt.quit()
             if (parent.desc == "start" && isReady) {
                 console.log("THIS: " + userTextInput.text + " " + userTextInput.desc)

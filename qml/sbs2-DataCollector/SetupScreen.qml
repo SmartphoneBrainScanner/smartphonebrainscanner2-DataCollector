@@ -3,10 +3,7 @@ import QtQuick 2.0
 Rectangle {
     id: setupScreen
     color: "#f9bcb7"
-    x: 0
-    y: 0
-    width: parent.width
-    height: parent.height
+    anchors.fill: parent
     property int counter: 0
     property int direction: 1
 
@@ -60,7 +57,6 @@ Rectangle {
             color: "#eee"
             text: page.title
             font.family: "Helvetica"
-            font.pointSize: 36
             font.bold: true
         }
 
@@ -204,8 +200,6 @@ Rectangle {
         color: "#a6170b"
         text: "Tap inside each input box on the left to insert the information about the experiment\n\nClose the keyboard to set the value in the input box"
         wrapMode: "WordWrap"
-        font.pointSize: 18
-        horizontalAlignment: Text.AlignJustify
     }
 
     Rectangle {

@@ -29,13 +29,11 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 id: usernameLabel
-                font.pointSize: 24
                 color: "white"
                 text: "Subject: "
             }
             Text {
                 id: usernameText
-                font.pointSize: 24
                 anchors.left: usernameLabel.right
                 color: "white"
                 text: setupScreen.username
@@ -49,14 +47,12 @@ Rectangle {
 
             Text {
                 id: descriptionLabel
-                font.pointSize: 24
                 anchors.left: parent.left
                 color: "white"
                 text: "Session: "
             }
             Text {
                 id: descText
-                font.pointSize: 24
                 anchors.left: descriptionLabel.right
                 color: "white"
                 text: setupScreen.description
@@ -72,12 +68,10 @@ Rectangle {
             anchors.top: parent.top
 
             Text {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
                 color: "#eee"
                 text: "Save & Quit"
                 font.family: "Helvetica"
-                font.pointSize: 24
                 font.bold: true
             }
 

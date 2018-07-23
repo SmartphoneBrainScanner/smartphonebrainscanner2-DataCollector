@@ -18,7 +18,6 @@ Item {
         border.color: "#a6170b"
         Text {
             color: "#eee"
-            font.pointSize: 28
             text: {
                 return String(parent.parent.desc)
             }
@@ -42,8 +41,6 @@ Item {
             id: textInput
             color: "#a6170b"
             font.bold: true
-            font.pointSize: 32
-            cursorVisible: false
 
             smooth: true
             anchors.fill: parent
