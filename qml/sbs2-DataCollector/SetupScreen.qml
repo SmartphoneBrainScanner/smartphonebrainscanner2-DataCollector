@@ -123,17 +123,4 @@ Rectangle {
             color: "black"
         }
     }
-
-    Behavior on opacity {
-        NumberAnimation {
-            duration: 300
-            easing.type: Easing.InOutBounce
-        }
-    }
-    Behavior on x {
-        NumberAnimation {
-            duration: 200
-            easing.type: Easing.InOutBounce
-        }
-    }
 }
