@@ -77,11 +77,14 @@ Rectangle {
     Text {
         id: currentPacketLabel
         font.pointSize: 28
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.top: parent.top
-        anchors.topMargin: 360
+        anchors.topMargin: 300
         color: "#a6170b"
         text: "Number of collected packages"
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        horizontalAlignment: Text.AlignHCenter
     }
     Text {
         id: currentPacketText
