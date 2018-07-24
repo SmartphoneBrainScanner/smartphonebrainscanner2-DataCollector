@@ -7,16 +7,10 @@ Rectangle {
     property int counter: 0
     property int direction: 1
 
-    property bool userVisible: true
-    property bool descVisible: false
+    readonly property alias username: userTextInput.text
+    readonly property alias description: descriptionTextInput.text
 
-    property string username: ""
-    property string description: ""
-
-    property bool usernameSet: false
-    property bool descriptionSet: false
-
-    property bool startReady: false
+    readonly property bool startReady: username !== "" && description !== "";
 
     function cqValue(name, value) {
         scalpmap.cqValue(name, value)
@@ -25,25 +19,6 @@ Rectangle {
             direction = -1
         if (setupScreen.counter == 0)
             direction = 1
-    }
-
-    function userInput(username_) {
-        setupScreen.username = username_
-        setupScreen.userVisible = false
-        setupScreen.descVisible = true
-        setupScreen.usernameSet = 1
-    }
-
-    function descInput(description_) {
-        setupScreen.description = description_
-        setupScreen.userVisible = false
-        setupScreen.descVisible = false
-        setupScreen.descriptionSet = 1
-        setupScreen.startReady = true
-    }
-
-    function setFocunOnDescriptionInput() {
-        descText.forceActiveFocus()
     }
 
     Rectangle {
@@ -83,16 +58,17 @@ Rectangle {
     MyTextInput {
         id: userTextInput
         desc: "Subject's Name"
+        activeFocusOnTab: true
+        focus: true
         x: 24
-        y: 250
-        visible: setupScreen.userVisible
+        y: 190
     }
     MyTextInput {
         id: descriptionTextInput
         desc: "Session's Desc"
+        activeFocusOnTab: true
         x: 24
-        y: 480
-        visible: setupScreen.descVisible
+        y: 420
     }
 
     Button {
@@ -103,23 +79,6 @@ Rectangle {
         radius: 10
         anchors.horizontalCenter: parent.horizontalCenter
         isReady: setupScreen.startReady
-    }
-
-    MyText {
-        id: userText
-        desc: "Subject's Name"
-        x: 24
-        y: 240
-        visible: !setupScreen.userVisible
-        text: setupScreen.username
-    }
-    MyText {
-        id: descText
-        desc: "Session's Desc"
-        x: 24
-        y: 460
-        visible: !setupScreen.descVisible
-        text: setupScreen.description
     }
 
     Text {

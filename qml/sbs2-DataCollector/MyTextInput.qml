@@ -1,39 +1,34 @@
 import QtQuick 2.2
 
-Item {
-
+FocusScope {
+    id: input
     x: 100
     y: 100
-    property string desc
-    property string text: textInput.text
-    property int fakeWidth: 380 //260
-    property int fakeHeight: 120 //80
+    property alias desc: header.text
+    property alias text: textInput.text
     width: 360
     height: 150
 
     Rectangle {
-        width: parent.width
         height: parent.height / 5 * 2
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
         color: "#ee2211"
         border.color: "#a6170b"
         Text {
+            id: header
             color: "#eee"
-            text: {
-                return String(parent.parent.desc)
-            }
             anchors.centerIn: parent
         }
-        anchors.bottom: parent.top
-        //anchors.bottomMargin: -5
-        anchors.left: parent.left
-        //anchors.leftMargin: 5
     }
 
     Rectangle {
 
-        id: input
-        width: parent.width
         height: parent.height / 5 * 3
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
         color: "#fbd2cf"
         border.color: "#a6170b"
 
@@ -42,19 +37,11 @@ Item {
             color: "#a6170b"
             font.bold: true
 
+            focus: true
             smooth: true
             anchors.fill: parent
             anchors.leftMargin: 24
             anchors.topMargin: 12
-
-            onEditingFinished: {
-                if (desc == "Subject's Name") {
-                    setupScreen.userInput(textInput.text)
-                    setupScreen.setFocunOnDescriptionInput()
-                }
-                if (desc == "Session's Desc")
-                    setupScreen.descInput(textInput.text)
-            }
         }
     }
 }
