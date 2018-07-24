@@ -75,78 +75,9 @@ Rectangle {
         anchors.bottom: parent.bottom
     }
 
-    Text {
-        id: time
-        text: " "
-        property int move: 0
-
-        Component.onCompleted: set()
-
-        function set() {
-            var currentTime = new Date()
-            var hours = currentTime.getHours()
-            var minutes = currentTime.getMinutes()
-            var seconds = currentTime.getSeconds()
-            var timeString = ""
-            if (minutes < 10) {
-                minutes = "0" + minutes
-            }
-            if (hours < 10) {
-                hours = "0" + hours
-            }
-            if (seconds < 10) {
-                seconds = "0" + seconds
-            }
-
-            timeString += hours + ":" + minutes + ":" + seconds
-
-            time.text = timeString
-            time.move = seconds
-        }
-
-        Timer {
-            id: timeTimer
-            interval: 1000
-            repeat: true
-            running: true
-            onTriggered: {
-                time.set()
-            }
-        }
-
+    Clock {
         x: 20
         y: page.height - 90
-        color: "grey"
-        font.family: "Helvetica"
-        font.pointSize: 27
-        font.bold: true
-
-        Rectangle {
-            color: "grey"
-            anchors.top: parent.bottom
-            anchors.topMargin: 0
-
-            width: parent.width
-            height: 10
-            Behavior on width {
-                NumberAnimation {
-                    easing.type: Easing.InOutBounce
-                }
-            }
-            Rectangle {
-                color: "black"
-                height: parent.height
-                width: 10
-                x: time.move / 60.0 * parent.width - width
-                opacity: time.move / 60.0
-
-                Behavior on x {
-                    NumberAnimation {
-                        easing.type: Easing.InOutBounce
-                    }
-                }
-            }
-        }
     }
 
     MyTextInput {
