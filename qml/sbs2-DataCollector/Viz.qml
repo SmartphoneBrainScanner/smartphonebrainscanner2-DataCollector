@@ -59,27 +59,17 @@ Rectangle {
             }
         }
 
-        Rectangle {
+        Button {
             id: quitRect
             color: "#a6170b"
             height: parent.height
             width: 240
             anchors.right: parent.right
             anchors.top: parent.top
+            desc: "Save & Quit"
 
-            Text {
-                anchors.centerIn: parent
-                color: "#eee"
-                text: "Save & Quit"
-                font.family: "Helvetica"
-                font.bold: true
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    Qt.quit()
-                }
+            onClicked: {
+                Qt.quit()
             }
         }
     }
