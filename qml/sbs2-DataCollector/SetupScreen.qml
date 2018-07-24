@@ -10,7 +10,7 @@ Rectangle {
     readonly property alias username: userTextInput.text
     readonly property alias description: descriptionTextInput.text
 
-    readonly property bool startReady: username !== "" && description !== "";
+    readonly property bool startReady: username !== "" && description !== ""
 
     function cqValue(name, value) {
         scalpmap.cqValue(name, value)
@@ -42,6 +42,9 @@ Rectangle {
             color: "#a6170b"
             anchors.right: parent.right
             desc: "x"
+            onClicked: {
+                Qt.quit()
+            }
         }
     }
     Scalpmap {
@@ -76,9 +79,19 @@ Rectangle {
         desc: "start"
         x: 0
         y: 620
+        width: 752
+        height: 90
+        activeFocusOnTab: true
         radius: 10
         anchors.horizontalCenter: parent.horizontalCenter
         isReady: setupScreen.startReady
+        onClicked: {
+            console.log("THIS: " + userTextInput.text + " " + userTextInput.desc)
+            console.log("THIS2:" + descriptionTextInput.text + " " + descriptionTextInput.desc)
+            page.state = "show"
+            page.startRecording(userTextInput.text, descriptionTextInput.text)
+            focus = false
+        }
     }
 
     Text {
