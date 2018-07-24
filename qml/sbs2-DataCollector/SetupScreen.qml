@@ -4,8 +4,6 @@ Rectangle {
     id: setupScreen
     color: "#f9bcb7"
     anchors.fill: parent
-    property int counter: 0
-    property int direction: 1
 
     readonly property alias username: userTextInput.text
     readonly property alias description: descriptionTextInput.text
@@ -14,11 +12,7 @@ Rectangle {
 
     function cqValue(name, value) {
         scalpmap.cqValue(name, value)
-        setupScreen.counter = (setupScreen.counter + direction)
-        if (setupScreen.counter == 100)
-            direction = -1
-        if (setupScreen.counter == 0)
-            direction = 1
+        aliveIndicator.poke()
     }
 
     Rectangle {
@@ -105,13 +99,29 @@ Rectangle {
         wrapMode: "WordWrap"
     }
 
-    Rectangle {
-        id: aliveIndicator
-        width: 15 * (setupScreen.counter + 1) / 100.0
-        height: start.height
-        color: "black"
+    Item {
+        property int counter: 0
+        property int direction: 1
+        function poke() {
+            counter = (counter + direction)
+            if (counter === 100)
+                direction = -1
+            if (counter === 0)
+                direction = 1
+        }
+
         anchors.bottom: start.bottom
         anchors.left: start.right
+        height: start.height
+        anchors.right: parent.right
+        id: aliveIndicator
+        Rectangle {
+            width: parent.width * (parent.counter + 1) / 100.0
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            color: "black"
+        }
     }
 
     Behavior on opacity {
