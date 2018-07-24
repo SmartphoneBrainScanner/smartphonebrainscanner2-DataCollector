@@ -99,28 +99,11 @@ Rectangle {
         wrapMode: "WordWrap"
     }
 
-    Item {
-        property int counter: 0
-        property int direction: 1
-        function poke() {
-            counter = (counter + direction)
-            if (counter === 100)
-                direction = -1
-            if (counter === 0)
-                direction = 1
-        }
-
-        anchors.bottom: start.bottom
-        anchors.left: start.right
+    AliveIndicator {
+        anchors.bottom: parent.bottom
         height: start.height
+        width: height
         anchors.right: parent.right
         id: aliveIndicator
-        Rectangle {
-            width: parent.width * (parent.counter + 1) / 100.0
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            color: "black"
-        }
     }
 }
