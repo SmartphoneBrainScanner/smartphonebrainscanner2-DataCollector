@@ -18,8 +18,23 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     MyCallback* myCallback = new MyCallback();
     Sbs2EmotivDataReader* sbs2DataReader = Sbs2EmotivDataReader::New(myCallback,0);
 
+    QStringList candidatePaths{"/bin/", QCoreApplication::applicationDirPath()};
+    QString filePath{"qml/sbs2-DataCollector/main.qml"};
+    if (!QFile::exists(filePath))
+    {
+        for(const auto& path : qAsConst(candidatePaths))
+        {
+            QString testPath = path + "/" + filePath;
+            if (QFile::exists(testPath))
+            {
+                filePath = testPath;
+                break;
+            }
+        }
+    }
+
     QQuickView viewer;
-    viewer.setSource(QUrl::fromLocalFile("qml/sbs2-DataCollector/main.qml"));
+    viewer.setSource(QUrl::fromLocalFile(filePath));
 
     QObject *rootObject = viewer.rootObject();
 
