@@ -8,6 +8,12 @@ SOURCES += main.cpp \
 
 include(../smartphonebrainscanner2-core/src/sbs2.pri)
 
+target.path = /bin/
+qml.path = /bin/qml/sbs2-DataCollector/
+qml.files = qml/sbs2-DataCollector/*.qml
+INSTALLS += target qml
+
+win32:RC_ICONS += datacollector.ico
 
 HEADERS += \
     mycallback.h
