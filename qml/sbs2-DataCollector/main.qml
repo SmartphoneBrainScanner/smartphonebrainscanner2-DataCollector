@@ -1,14 +1,14 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
+import QtQuick.Window 2.3
 
-Rectangle {
+Window {
     id: page
-    anchors.fill: parent
-    width: 800
-    height: 1280
+    height: 800
+    width: 1280
+    visible: true
 
     property bool horizontal: width > height
-    state: "startupScreen"
     property string title: "sbs2-DataCollector"
     color: "#f9bcb7"
 
@@ -28,38 +28,50 @@ Rectangle {
         width: parent.width
         delegate: stack.item.topBarDelegate
         height: 120
-    }
-
-    StackLayout {
-        id: stack
-        width: horizontal ? parent.width / 2 : parent.width
-        height: horizontal ? parent.height : parent.height / 2
-        property var item: children[stack.currentIndex]
-        SetupScreen {
-            id: setupScreen
-            onStartClicked: stack.currentIndex = 1
-        }
-        Viz {
-            id: viz
-            username: setupScreen.username
-            description: setupScreen.description
-        }
+        id: topbar
     }
     Item {
-        anchors.left: horizontal ? stack.right : parent.left
-        anchors.right: parent.right
-        anchors.top: horizontal ? parent.top : stack.bottom
+        anchors.margins: 20
+        anchors.top: topbar.bottom
         anchors.bottom: parent.bottom
-        Scalpmap {
-            id: scalpmap
-            anchors.centerIn: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        StackLayout {
+            id: stack
+            width: horizontal ? parent.width / 2 : parent.width
+            height: horizontal ? parent.height : parent.height / 2
+            property var item: children[stack.currentIndex]
+            SetupScreen {
+                id: setupScreen
+                onStartClicked: stack.currentIndex = 1
+            }
+            Viz {
+                id: viz
+                username: setupScreen.username
+                description: setupScreen.description
+            }
         }
-        AliveIndicator {
-            anchors.bottom: parent.bottom
-            height: 120 // start.height
-            width: height
+        Item {
+            anchors.left: horizontal ? stack.right : parent.left
             anchors.right: parent.right
-            id: aliveIndicator
+            anchors.top: horizontal ? parent.top : stack.bottom
+            anchors.bottom: parent.bottom
+            Scalpmap {
+                id: scalpmap
+                anchors.centerIn: parent
+            }
+            AliveIndicator {
+                anchors.bottom: parent.bottom
+                height: 120 // start.height
+                width: height
+                anchors.right: parent.right
+                id: aliveIndicator
+            }
+            Clock {
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+            }
         }
     }
 }
