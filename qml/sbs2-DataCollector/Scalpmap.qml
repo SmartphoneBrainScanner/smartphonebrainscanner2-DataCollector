@@ -1,17 +1,16 @@
 //import QtQuick 1.1
 import QtQuick 2.0
 
-Rectangle {
+Item {
     id: scalpmap
     property int scalling: 1
     width: 800 / scalling
     height: 480 / scalling
-    color: "#f9bcb7"
 
     function cqValue(name, value) {
         //console.log(name + " "+value)
         for (var i = 0; i < children.length; ++i) {
-            if (children[i].name == name)
+            if (children[i].name === name)
                 children[i].value = value
             //console.log(children[i].name)
         }

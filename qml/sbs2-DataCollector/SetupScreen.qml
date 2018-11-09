@@ -1,50 +1,24 @@
 import QtQuick 2.0
 
-Rectangle {
+Item {
     id: setupScreen
-    color: "#f9bcb7"
-    anchors.fill: parent
 
     readonly property alias username: userTextInput.text
     readonly property alias description: descriptionTextInput.text
 
     readonly property bool startReady: username !== "" && description !== ""
 
-    function cqValue(name, value) {
-        scalpmap.cqValue(name, value)
-        aliveIndicator.poke()
-    }
-
-    Rectangle {
-        color: "#ee2211"
-        width: parent.width
-        height: 120
-
-        Text {
-            x: 24
-            anchors.verticalCenter: parent.verticalCenter
-            color: "#eee"
-            text: page.title
-            font.family: "Helvetica"
-            font.bold: true
-        }
-
-        Button {
-            id: quit
-            height: parent.height
-            width: height
-            color: "#a6170b"
-            anchors.right: parent.right
-            desc: "x"
-            onClicked: {
-                Qt.quit()
+    signal startClicked
+    property var topBarDelegate: Component {
+        Item {
+            Text {
+                color: "#eee"
+                anchors.verticalCenter: parent.verticalCenter
+                text: page.title
+                font.family: "Helvetica"
+                font.bold: true
             }
         }
-    }
-    Scalpmap {
-        id: scalpmap
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
     }
 
     Clock {
@@ -82,8 +56,8 @@ Rectangle {
         onClicked: {
             console.log("THIS: " + userTextInput.text + " " + userTextInput.desc)
             console.log("THIS2:" + descriptionTextInput.text + " " + descriptionTextInput.desc)
-            page.state = "show"
             page.startRecording(userTextInput.text, descriptionTextInput.text)
+            startClicked()
             focus = false
         }
     }
@@ -97,13 +71,5 @@ Rectangle {
         color: "#a6170b"
         text: "Tap inside each input box on the left to insert the information about the experiment\n\nClose the keyboard to set the value in the input box"
         wrapMode: "WordWrap"
-    }
-
-    AliveIndicator {
-        anchors.bottom: parent.bottom
-        height: start.height
-        width: height
-        anchors.right: parent.right
-        id: aliveIndicator
     }
 }
