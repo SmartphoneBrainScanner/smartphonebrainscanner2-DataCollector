@@ -1,15 +1,27 @@
 #include <QGuiApplication>
-#include <QQuickView>
 #include <QQuickItem>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 
 #include <mycallback.h>
+#include "logcatcher.h"
 
 #include <hardware/emotiv/sbs2emotivdatareader.h>
 
+LogCatcher logcatcher;
+
+void loghandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
+{
+    Q_UNUSED(type);
+    Q_UNUSED(ctx);
+    std::cout << qPrintable(msg) << std::endl;
+    logcatcher.addLine(msg);
+}
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
+    qInstallMessageHandler(loghandler);
     QGuiApplication app(argc, argv);
 
     qDebug() << "catalogPath: "<<Sbs2Common::setDefaultCatalogPath();
@@ -34,7 +46,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     }
 
     QQmlApplicationEngine viewer;
+    viewer.rootContext()->setContextProperty("logger",&logcatcher);
     viewer.load(QUrl::fromLocalFile(filePath));
+    if (viewer.rootObjects().isEmpty())
+    {
+        return 1;
+    }
 
     QObject *rootObject = viewer.rootObjects().first();
 

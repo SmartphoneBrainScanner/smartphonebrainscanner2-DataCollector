@@ -4,7 +4,8 @@ QT += quick
 QML_IMPORT_PATH =
 
 SOURCES += main.cpp \
-    mycallback.cpp
+    mycallback.cpp \
+    logcatcher.cpp
 
 include(../smartphonebrainscanner2-core/src/sbs2.pri)
 
@@ -16,7 +17,8 @@ INSTALLS += target qml
 win32:RC_ICONS += datacollector.ico
 
 HEADERS += \
-    mycallback.h
+    mycallback.h \
+    logcatcher.h
 
 RESOURCES += \
     resources.qrc

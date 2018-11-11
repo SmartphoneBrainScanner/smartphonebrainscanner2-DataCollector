@@ -25,10 +25,18 @@ Window {
         viz.packageCount = value
     }
     TopBar {
+        helpButtonVisible: !help.visible
         width: parent.width
         delegate: stack.item.topBarDelegate
         height: 120
         id: topbar
+        onQuitTriggered: {
+            help.visible ? helpStack.closeHelp() : Qt.quit()
+        }
+
+        onHelpTriggered: {
+            helpStack.help()
+        }
     }
     Item {
         anchors.margins: 20
@@ -52,25 +60,64 @@ Window {
                 description: setupScreen.description
             }
         }
-        Item {
+        StackLayout {
+            id: helpStack
+            function help() {
+                currentIndex = 1
+            }
+            function closeHelp() {
+                currentIndex = 0
+            }
+
             anchors.left: horizontal ? stack.right : parent.left
             anchors.right: parent.right
             anchors.top: horizontal ? parent.top : stack.bottom
             anchors.bottom: parent.bottom
-            Scalpmap {
-                id: scalpmap
-                anchors.centerIn: parent
+            Item {
+                Scalpmap {
+                    id: scalpmap
+                    anchors.centerIn: parent
+                }
+                AliveIndicator {
+                    anchors.bottom: parent.bottom
+                    height: 120 // start.height
+                    width: height
+                    anchors.right: parent.right
+                    id: aliveIndicator
+                }
+                Clock {
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                }
             }
-            AliveIndicator {
-                anchors.bottom: parent.bottom
-                height: 120 // start.height
-                width: height
-                anchors.right: parent.right
-                id: aliveIndicator
-            }
-            Clock {
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
+            ListView {
+                id: help
+                model: logger.lines
+                clip: true
+                header: Rectangle {
+                    z: 2
+                    width: ListView.view.width
+                    height: headerText.font.pixelSize * 2
+                    color: "#ee2211"
+                    Text {
+                        id: headerText
+                        text: "Logs"
+                        anchors.centerIn: parent
+                    }
+                }
+
+                delegate: Rectangle {
+                    color: "#fbd2cf"
+                    border.color: "#a6170b"
+                    width: ListView.view.width
+                    height: logLine.height
+                    Text {
+                        id: logLine
+                        text: modelData
+                        width: parent.width
+                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    }
+                }
             }
         }
     }

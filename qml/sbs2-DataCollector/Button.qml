@@ -4,6 +4,7 @@ FocusScope {
     property alias desc: text.text
     property bool isReady: true
     signal clicked
+    property alias pressed: mouseArea.pressed
     id: button
     property alias color: rect.color
     property alias radius: rect.radius
@@ -29,6 +30,7 @@ FocusScope {
         }
 
         MouseArea {
+            id: mouseArea
             anchors.fill: parent
             onClicked: button.clicked()
         }
