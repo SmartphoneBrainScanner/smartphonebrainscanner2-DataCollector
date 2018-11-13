@@ -7,6 +7,7 @@ Window {
     height: 800
     width: 1280
     visible: true
+    visibility: Window.Maximized
 
     property bool horizontal: width > height
     property string title: "sbs2-DataCollector"
