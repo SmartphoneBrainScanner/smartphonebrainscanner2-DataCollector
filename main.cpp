@@ -1,30 +1,77 @@
-#include <QApplication>
-#include "qmlapplicationviewer.h"
-#include <QtDeclarative>
+#include <QGuiApplication>
+#include <QQuickItem>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+
 
 #include <mycallback.h>
+#include "logcatcher.h"
 
 #include <hardware/emotiv/sbs2emotivdatareader.h>
+#include <hardware/filereader/sbs2filedatareader.h>
+
+LogCatcher logcatcher;
+
+void loghandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
+{
+    Q_UNUSED(type);
+    Q_UNUSED(ctx);
+    std::cout << qPrintable(msg) << std::endl;
+    logcatcher.addLine(msg);
+}
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QScopedPointer<QApplication> app(createApplication(argc, argv));
+    qInstallMessageHandler(loghandler);
+    QGuiApplication app(argc, argv);
+
+    QCommandLineParser parser;
+    QCommandLineOption dataFilePath("datafile","File to read instead of device", "filepath");
+    parser.addOption(dataFilePath);
+    parser.addHelpOption();
+    parser.process(app);
 
     qDebug() << "catalogPath: "<<Sbs2Common::setDefaultCatalogPath();
     qDebug() << "rootAppPath: "<<Sbs2Common::setDefaultRootAppPath();
 
     MyCallback* myCallback = new MyCallback();
-    Sbs2EmotivDataReader* sbs2DataReader = Sbs2EmotivDataReader::New(myCallback,0);
+    Sbs2DataReader* sbs2DataReader = nullptr;
+    if (!parser.isSet(dataFilePath))
+    {
+        sbs2DataReader = Sbs2EmotivDataReader::New(myCallback,0);
+    }
+    else
+    {
+        sbs2DataReader = new Sbs2FileDataReader(myCallback,parser.value(dataFilePath));
+    }
 
-    QmlApplicationViewer viewer;
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    viewer.setMainQmlFile(QLatin1String("qml/sbs2-DataCollector/main.qml"));
-    viewer.showExpanded();
+    QStringList candidatePaths{"/bin/", QCoreApplication::applicationDirPath()};
+    QString filePath{"qml/sbs2-DataCollector/main.qml"};
+    if (!QFile::exists(filePath))
+    {
+        for(const auto& path : qAsConst(candidatePaths))
+        {
+            QString testPath = path + "/" + filePath;
+            if (QFile::exists(testPath))
+            {
+                filePath = testPath;
+                break;
+            }
+        }
+    }
 
-    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
+    QQmlApplicationEngine viewer;
+    viewer.rootContext()->setContextProperty("logger",&logcatcher);
+    viewer.load(QUrl::fromLocalFile(filePath));
+    if (viewer.rootObjects().isEmpty())
+    {
+        return 1;
+    }
 
-    QObject::connect(app.data(), SIGNAL(aboutToQuit()), sbs2DataReader, SLOT(aboutToQuit()));
-    QObject::connect((QObject*)viewer.engine(), SIGNAL(quit()), app.data(), SLOT(quit()));
+    QObject *rootObject = viewer.rootObjects().first();
+
+    QObject::connect(&app, SIGNAL(aboutToQuit()), sbs2DataReader, SLOT(aboutToQuit()));
+    QObject::connect(&viewer, SIGNAL(quit()), &app, SLOT(quit()));
 
     QObject::connect(myCallback, SIGNAL(currentPacketInRecording(QVariant)), rootObject, SLOT(currentPacket(QVariant)));
     QObject::connect(myCallback, SIGNAL(cqValues(QVariant,QVariant)), rootObject, SLOT(cqUpdated(QVariant,QVariant)));
@@ -32,5 +79,5 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QObject::connect(rootObject, SIGNAL(stopRecording()), myCallback, SLOT(stopRecording()));
     QObject::connect(rootObject,  SIGNAL(event(QString)), myCallback, SLOT(insertIntoMetaFile(QString)));
 
-    return app->exec();
+    return app.exec();
 }

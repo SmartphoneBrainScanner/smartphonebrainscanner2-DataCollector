@@ -1,39 +1,38 @@
-import Qt 4.7
+import QtQuick 2.2
 
-Rectangle {
-    width: 752
-    height: 90
-    color: "#ee2211"
-    opacity: {if (desc == "quit" || isReady) return 1; return 0.4}
-    property string desc
-    x: 0
-    y: 0
+FocusScope {
+    property alias desc: text.text
     property bool isReady: true
+    signal clicked
+    property alias pressed: mouseArea.pressed
+    id: button
+    property alias color: rect.color
+    property alias radius: rect.radius
+    Rectangle {
+        Keys.onReturnPressed: {
+            button.clicked()
+        }
 
+        Keys.onEnterPressed: {
+            button.clicked()
+        }
+        focus: true
+        id: rect
+        anchors.fill: parent
+        color: "#ee2211"
+        opacity: isReady ? 1 : 0.4
 
-    Text {
-    color: "#eee"
-	text: parent.desc
-	font.pointSize: 36
-	anchors.centerIn: parent
-	font.bold: true
-    }
+        Text {
+            id: text
+            color: "#eee"
+            anchors.centerIn: parent
+            font.bold: true
+        }
 
-    MouseArea
-    {
-	anchors.fill: parent
-	onClicked:
-	{
-	    if (parent.desc == "quit")
-		Qt.quit();
-	    if (parent.desc == "start" && isReady)
-	    {
-		console.log("THIS: "+userTextInput.text+" "+userTextInput.desc);
-		console.log("THIS2:"+descriptionTextInput.text+" "+descriptionTextInput.desc);
-		page.state = "show";
-		page.startRecording(userTextInput.text,descriptionTextInput.text)
-
-	    }
-	}
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            onClicked: button.clicked()
+        }
     }
 }
