@@ -8,6 +8,7 @@
 #include "logcatcher.h"
 
 #include <hardware/emotiv/sbs2emotivdatareader.h>
+#include <hardware/filereader/sbs2filedatareader.h>
 
 LogCatcher logcatcher;
 
@@ -24,11 +25,25 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qInstallMessageHandler(loghandler);
     QGuiApplication app(argc, argv);
 
+    QCommandLineParser parser;
+    QCommandLineOption dataFilePath("datafile","File to read instead of device", "filepath");
+    parser.addOption(dataFilePath);
+    parser.addHelpOption();
+    parser.process(app);
+
     qDebug() << "catalogPath: "<<Sbs2Common::setDefaultCatalogPath();
     qDebug() << "rootAppPath: "<<Sbs2Common::setDefaultRootAppPath();
 
     MyCallback* myCallback = new MyCallback();
-    Sbs2EmotivDataReader* sbs2DataReader = Sbs2EmotivDataReader::New(myCallback,0);
+    Sbs2DataReader* sbs2DataReader = nullptr;
+    if (!parser.isSet(dataFilePath))
+    {
+        sbs2DataReader = Sbs2EmotivDataReader::New(myCallback,0);
+    }
+    else
+    {
+        sbs2DataReader = new Sbs2FileDataReader(myCallback,parser.value(dataFilePath));
+    }
 
     QStringList candidatePaths{"/bin/", QCoreApplication::applicationDirPath()};
     QString filePath{"qml/sbs2-DataCollector/main.qml"};
