@@ -12,5 +12,5 @@ void LogCatcher::addLine(const QString &line)
 }
 
 QVariant LogCatcher::lines() const {
-    return m_logs;
+    return QVariant(m_logs);
 }
