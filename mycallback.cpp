@@ -1,4 +1,5 @@
 #include "mycallback.h"
+#include "sbs2datahandler.h"
 
 MyCallback::MyCallback(QObject *parent) :
     Sbs2Callback(parent)

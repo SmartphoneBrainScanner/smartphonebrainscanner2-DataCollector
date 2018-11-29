@@ -45,24 +45,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         sbs2DataReader = new Sbs2FileDataReader(myCallback,parser.value(dataFilePath));
     }
 
-    QStringList candidatePaths{"/bin/", QCoreApplication::applicationDirPath()};
-    QString filePath{"qml/sbs2-DataCollector/main.qml"};
-    if (!QFile::exists(filePath))
-    {
-        for(const auto& path : qAsConst(candidatePaths))
-        {
-            QString testPath = path + "/" + filePath;
-            if (QFile::exists(testPath))
-            {
-                filePath = testPath;
-                break;
-            }
-        }
-    }
+    QString filePath{"qrc:/qml/sbs2-DataCollector/main.qml"};
 
     QQmlApplicationEngine viewer;
     viewer.rootContext()->setContextProperty("logger",&logcatcher);
-    viewer.load(QUrl::fromLocalFile(filePath));
+    viewer.load(QUrl(filePath));
     if (viewer.rootObjects().isEmpty())
     {
         return 1;
