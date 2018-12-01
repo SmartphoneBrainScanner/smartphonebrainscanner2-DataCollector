@@ -20,3 +20,6 @@ HEADERS += \
 
 RESOURCES += \
     resources.qrc
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android-sources/
+OTHER_FILES += android-sources/AndroidManifest.xml
