@@ -32,6 +32,7 @@ FocusScope {
         MouseArea {
             id: mouseArea
             anchors.fill: parent
+            enabled: isReady
             onClicked: button.clicked()
         }
     }
