@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<manifest package="org.qtproject.example.sbs2_DataCollector" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0" android:versionCode="1" android:installLocation="auto">
+<manifest package="dk.dtu.compute.sbs2.DataCollector" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0" android:versionCode="1" android:installLocation="auto">
     <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="Smartphone Brainscanner DataCollector" android:icon="@drawable/icon">
         <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.qtproject.qt5.android.bindings.QtActivity" android:label="Smartphone Brainscanner DataCollector" android:screenOrientation="unspecified" android:launchMode="singleTop">
             <intent-filter>
