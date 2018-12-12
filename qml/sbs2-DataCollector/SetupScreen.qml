@@ -50,6 +50,7 @@ Column {
             console.log("THIS: " + userTextInput.text + " " + userTextInput.desc)
             console.log("THIS2:" + descriptionTextInput.text + " " + descriptionTextInput.desc)
             page.startRecording(userTextInput.text, descriptionTextInput.text)
+            forceActiveFocus()
             startClicked()
             focus = false
         }

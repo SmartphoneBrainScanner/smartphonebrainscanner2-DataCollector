@@ -3,6 +3,11 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
 
 Window {
+    MouseArea
+    {
+        anchors.fill: parent
+        onClicked: Qt.inputMethod.hide()
+    }
     id: page
     height: 800
     width: 1280

@@ -1,5 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>scalpmap.png</file>
+        <file>qml/sbs2-DataCollector/AliveIndicator.qml</file>
+        <file>qml/sbs2-DataCollector/Button.qml</file>
+        <file>qml/sbs2-DataCollector/Clock.qml</file>
+        <file>qml/sbs2-DataCollector/Electrode.qml</file>
+        <file>qml/sbs2-DataCollector/main.qml</file>
+        <file>qml/sbs2-DataCollector/MyTextInput.qml</file>
+        <file>qml/sbs2-DataCollector/Scalpmap.qml</file>
+        <file>qml/sbs2-DataCollector/SetupScreen.qml</file>
+        <file>qml/sbs2-DataCollector/TopBar.qml</file>
+        <file>qml/sbs2-DataCollector/Viz.qml</file>
     </qresource>
 </RCC>

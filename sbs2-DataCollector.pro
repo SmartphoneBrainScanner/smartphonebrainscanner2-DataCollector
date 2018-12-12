@@ -10,9 +10,7 @@ SOURCES += main.cpp \
 include(../smartphonebrainscanner2-core/src/sbs2.pri)
 
 target.path = /bin/
-qml.path = /bin/qml/sbs2-DataCollector/
-qml.files = qml/sbs2-DataCollector/*.qml
-INSTALLS += target qml
+INSTALLS += target
 
 win32:RC_ICONS += datacollector.ico
 
@@ -22,3 +20,6 @@ HEADERS += \
 
 RESOURCES += \
     resources.qrc
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android-sources/
+OTHER_FILES += android-sources/AndroidManifest.xml
